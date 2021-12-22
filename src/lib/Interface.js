@@ -14,19 +14,17 @@ export default class Interface {
   buildStyle() {
     return el('style',
       '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', 
-      '#cconsent-bar { background-color:#435a70; color:#fff; padding:32px 48px; text-align:right; font-size:1rem; line-height:18px; position:fixed; bottom:0; max-width: 832px;left: 50%;right: auto; width:100%; z-index:9998; transform: translateX(-50%);}',
+      '#cconsent-bar { background-color:#435a70; color:#fff; padding:32px 48px; font-size:1rem; line-height:18px; position:fixed; bottom:0; max-width: 832px;left: 50%;right: auto; width:100%; z-index:9998; transform: translateX(-50%);}',
       '@media (min-width: 832px) { #cconsent-bar { border-radius: 4px 4px 0 0; }}',
       '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block;}', 
-      '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
-      '#cconsent-bar .ccb__left { align-self:center; text-align:left; font-size: 0.889rem;width:100%}',
-      '@media (min-width: 600px) { #cconsent-bar .ccb__left  { width:60% }}',
+      '#cconsent-bar .ccb__wrapper {margin:0 auto;}',
+      '#cconsent-bar .ccb__left { font-size: 0.889rem; width:100%}',
       '#cconsent-bar .ccb__left .cc-text {font-size: 0.9rem;line-height: 1.25em;}',
-      '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap; width:100%; margin-top: 20px}',
-      '@media (min-width: 600px) { #cconsent-bar .ccb__right  { width:40%; margin-top: 0 }}',
-      '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}',
+      '#cconsent-bar .ccb__right {width:100%;}',
+      '#cconsent-bar .ccb__right .col {color:#FFF; margin-top:20px}',
       '#cconsent-bar a { text-decoration:underline; color:#fff; text-transform: uppercase;font-size: 0.778rem;font-weight: 600;letter-spacing: 0.1em; }',
-      '#cconsent-bar button { background: transparent;border: none;padding: 0;color: #fff;letter-spacing: 0.1em;font-weight: 600;text-transform: uppercase;font-size: 0.778rem;display: inline-block;line-height: 1em;margin-left: 25px;}',
-      '#cconsent-bar a.ccb__edit { margin-right:15px }',
+      '#cconsent-bar button { background: transparent;border: none;padding: 0;color: #fff;letter-spacing: 0.1em;font-weight: 600;text-transform: uppercase;font-size: 0.778rem;display: inline-block;line-height: 1em;margin:0 5px;}',
+      '#cconsent-bar a.ccb__edit { margin:0 5px; text-decoration:none }',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
       '#cconsent-modal { display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-size:1rem; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cconsent-modal { height: 100% } }',
@@ -73,8 +71,7 @@ export default class Interface {
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }',
       '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
       '#cconsent-modal .ccm__footer button { cursor:pointer; }',
-      '#cconsent-modal .ccm__footer button:hover {  }',
-      '#cconsent-modal .ccm__footer button#ccm__footer__consent-modal-submit {  margin-right:10px; }'
+      '#cconsent-modal .ccm__footer button:hover {  }'
       );
   }
 
@@ -85,9 +82,10 @@ export default class Interface {
             el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))
           ),
           el('div.ccb__right',
-            el('div.ccb__button',
-              el('a.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
-              el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
+            el('div.ccb__button.row',
+              el('button.consent-refuse.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll')),
+              el('a.ccb__edit.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
+              el('button.consent-give.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
         ),
@@ -173,8 +171,9 @@ export default class Interface {
           )
         ),
         el('div.ccm__footer',
-          el('button#ccm__footer__consent-modal-submit.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
-          el('button.consent-give.btn.btn-md.btn-success', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
+          el('button.consent-refuse.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRefuseAll')),
+          el('button#ccm__footer__consent-modal-submit.btn.btn-md.btn-info.ml-3', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+          el('button.consent-give.btn.btn-md.btn-info.ml-3', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )
     );
@@ -263,6 +262,34 @@ export default class Interface {
 
         this.modalRedrawIcons();
   
+      });
+    }
+
+    // If you click Accept all cookies
+    var buttonConsentRefuse = document.querySelectorAll('.consent-refuse');
+
+    for(let button of buttonConsentRefuse) {
+      button.addEventListener('click', () => {
+
+        // We set config to full consent
+        for(let key in window.CookieConsent.config.categories) {
+          if (!window.CookieConsent.config.categories[key].needed) {
+            window.CookieConsent.config.categories[key].wanted =
+                window.CookieConsent.config.categories[key].checked = false;
+          }
+        }
+
+        this.writeBufferToDOM();
+
+        this.buildCookie((cookie) => {
+          this.setCookie(cookie);
+        });
+
+        this.elements['bar'].classList.add('ccb--hidden');
+        this.elements['modal'].classList.remove('ccm--visible');
+
+        this.modalRedrawIcons();
+
       });
     }
 
