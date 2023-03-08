@@ -14,17 +14,18 @@ export default class Interface {
   buildStyle() {
     return el('style',
       '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', 
-      '#cconsent-bar { background-color:#435a70; color:#fff; padding:32px 48px; font-size:1rem; line-height:18px; position:fixed; bottom:0; max-width: 832px;left: 50%;right: auto; width:100%; z-index:9998; transform: translateX(-50%);}',
+      '#cconsent-bar { background-color:#435a70; color:#fff; font-size:1rem; line-height:30px; position:fixed; bottom:0; max-width: 832px;left: 50%;right: auto; width:100%; z-index:9998; transform: translateX(-50%);max-height: 100%;overflow-y: auto;}',
       '@media (min-width: 832px) { #cconsent-bar { border-radius: 4px 4px 0 0; }}',
       '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block;}', 
-      '#cconsent-bar .ccb__wrapper {margin:0 auto;}',
+      '#cconsent-bar .ccb__wrapper {margin:0 auto;padding:48px;}',
       '#cconsent-bar .ccb__left { font-size: 0.889rem; width:100%}',
-      '#cconsent-bar .ccb__left .cc-text {font-size: 0.9rem;line-height: 1.25em;}',
+      '#cconsent-bar .ccb__left .cc-text {font-size: 1.1em;line-height: 1.5;white-space: pre-line;}',
       '#cconsent-bar .ccb__right {width:100%;}',
       '#cconsent-bar .ccb__right .col {color:#FFF; margin-top:20px}',
-      '#cconsent-bar a { text-decoration:underline; color:#fff; text-transform: uppercase;font-size: 0.778rem;font-weight: 600;letter-spacing: 0.1em; }',
-      '#cconsent-bar button { background: transparent;border: none;padding: 0;color: #fff;letter-spacing: 0.1em;font-weight: 600;text-transform: uppercase;font-size: 0.778rem;display: inline-block;line-height: 1em;margin:0 5px;}',
-      '#cconsent-bar a.ccb__edit { margin:0 5px; text-decoration:none }',
+      '#cconsent-bar a { text-decoration:underline; color:#fff;opacity: 1}',
+      '#cconsent-bar .ccb__right a { text-decoration:underline; color:#fff; text-transform: uppercase;font-size: 1rem;font-weight: 600;letter-spacing: 0.1em; }',
+      '#cconsent-bar button { background: transparent;border: none;padding: 5px;color: #fff;letter-spacing: 0.1em;font-weight: 600;text-transform: uppercase;font-size: 1rem;display: inline-block;line-height: 1em;margin:0 3px;border: 1px solid #fff;}',
+      '#cconsent-bar a.ccb__edit { margin:0 3px;padding: 5px; text-decoration:none;display: inline-block;line-height: 1em;border: 1px solid #fff;}',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
       '#cconsent-modal { display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-size:1rem; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cconsent-modal { height: 100% } }',
@@ -74,18 +75,31 @@ export default class Interface {
       '#cconsent-modal .ccm__footer button:hover {  }'
       );
   }
-
+//'<a href="#" class="close m-3"><i class="fa fa-times"></i></a>'
   buildBar() {
-    return el('div#cconsent-bar.ccb--hidden',
+    return el('section#cconsent-bar.ccb--hidden',
+        el(`a.close.m-3.consent-refuse`, { href: '#', tabindex: 0, title: Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll') },
+          el(`i.fa.fa-times`),
+          el(`span.d-none`, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll')),
+        ),
         el(`div.ccb__wrapper`,
           el('div.ccb__left',
-            el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))
+            el('div.cc-text',
+                el('p.mb-1', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText')),
+                el('p.m-0.cookie-policy-link', (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null)
+            ),
           ),
           el('div.ccb__right',
             el('div.ccb__button.row',
-              el('button.consent-refuse.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll')),
-              el('a.ccb__edit.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
-              el('button.consent-give.col.text-center', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
+              el('div.col-xs-12.col-md-4.text-center.mt-4',
+                 el('button.consent-refuse', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll'))
+              ),
+              el('div.col-xs-12.col-md-4.text-center.mt-4',
+                el('a.ccb__edit', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'))
+              ),
+              el('div.col-xs-12.col-md-4.text-center.mt-4',
+                el('button.consent-give', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
+              )
             )
           )
         ),
@@ -124,8 +138,8 @@ export default class Interface {
         contentItems.push(el('dl.ccm__tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked-5jhk' : ''), {'data-category':key},
                             el('dt.ccm__tab-head', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'),
                               el('a.ccm__tab-head__icon-wedge', 
-                                el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
-                                  el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", class: "icon-wedge-angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
+                                el(function(){ return document.createElementNS("http://www.w3.org/2000/svg", "svg")}, { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
+                                  el(function(){ return document.createElementNS("http://www.w3.org/2000/svg", "path")}, { 'xmlns:default': "http://www.w3.org/2000/svg", class: "icon-wedge-angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
                                 )
                               ),
                             ),
@@ -162,7 +176,7 @@ export default class Interface {
         el('div.ccm__content__heading',
           el('h2', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
           el('p.nl2br', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText')),
-          el('p',  (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null),
+          el('p.cookie-policy-link',  (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null),
           el('div.ccm__cheading__close', '×')
         ),
         el('div.ccm__content__body',
@@ -170,10 +184,16 @@ export default class Interface {
             modalTabGroups()
           )
         ),
-        el('div.ccm__footer',
-          el('button.consent-refuse.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRefuseAll')),
-          el('button#ccm__footer__consent-modal-submit.btn.btn-md.btn-info.ml-3', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
-          el('button.consent-give.btn.btn-md.btn-info.ml-3', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
+        el('div.ccm__footer.row',
+          el('div.col-xs-12.col-md-4.mb-2',
+            el('button.consent-refuse.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRefuseAll'))
+          ),
+          el('div.col-xs-12.col-md-4.mb-2',
+            el('button#ccm__footer__consent-modal-submit.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave'))
+          ),
+          el('div.col-xs-12.col-md-4.mb-2',
+            el('button.consent-give.btn.btn-md.btn-info', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
+          )
         )
       )
     );
@@ -402,7 +422,7 @@ export default class Interface {
   }
   
   setCookie(cookie, callback) {
-    const expires_in = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+    const expires_in = new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toUTCString();
 
     document.cookie = `cconsent=${JSON.stringify(cookie)}; expires=${expires_in}; path=/; samesite=strict; secure;`;
 
