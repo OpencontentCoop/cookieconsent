@@ -95,7 +95,7 @@ export default class Interface {
                  el('button.consent-refuse', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRefuseAll'))
               ),
               el('div.col-xs-12.col-md-4.text-center.mt-4',
-                el('a.ccb__edit', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'))
+                el('a.ccb__edit', { href: '#', tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'))
               ),
               el('div.col-xs-12.col-md-4.text-center.mt-4',
                 el('button.consent-give', { tabindex: 0 }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
@@ -137,7 +137,7 @@ export default class Interface {
 
         contentItems.push(el('dl.ccm__tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked-5jhk' : ''), {'data-category':key},
                             el('dt.ccm__tab-head', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'),
-                              el('a.ccm__tab-head__icon-wedge', 
+                              el('a.ccm__tab-head__icon-wedge', { href: '#', tabindex: 0, title: '(Un)check' },
                                 el(function(){ return document.createElementNS("http://www.w3.org/2000/svg", "svg")}, { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
                                   el(function(){ return document.createElementNS("http://www.w3.org/2000/svg", "path")}, { 'xmlns:default': "http://www.w3.org/2000/svg", class: "icon-wedge-angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
                                 )
